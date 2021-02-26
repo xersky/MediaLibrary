@@ -3,18 +3,17 @@ import java.sql.*;
 import java.util.Scanner;
 public class Admin extends User {
 
-    public String password;
+    private String password;
 
 
     public void dbLogin(){
-        String user,password;
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter ur credentials:");
-        user = sc.next();
-        password = sc.next();
+        this.username = sc.next();
+        this.password = sc.next();
 
-        if (DatabaseController.getPassword(user).equals(password)) {
+        if (DatabaseController.getPassword(this.username).equals(this.password)) {
             System.out.println("pog");
         } else System.out.println("not pog");
     }

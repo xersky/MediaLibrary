@@ -1,3 +1,3 @@
 public abstract class User {
-    public String username;
+    protected String username;
 }
