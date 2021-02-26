@@ -27,8 +27,6 @@ public abstract class Document {
     }
 
 
-
-
     public void display() {
         String path = this.path;
         String nameOfFile = this.nameOfFile;
@@ -52,8 +50,18 @@ public abstract class Document {
     public abstract int getDocID();
 
 
-    public void delete(int docID) {
-        //tbd
+    public void delete() {
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "DELETE FROM document WHERE ID = '" + this.getDocID() + "' ;";
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
 
     }
 

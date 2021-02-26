@@ -1,3 +1,3 @@
 public abstract class User {
-// hi bitch
+    public String username;
 }

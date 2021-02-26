@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class DatabaseController {
 
-    static DatabaseModel pog = new DatabaseModel();
+    static final DatabaseModel pog = new DatabaseModel();
 
     public static void dbConnection() {
 
@@ -17,7 +17,7 @@ public class DatabaseController {
             String query = "select * from author;";
             ResultSet rs = stmt.executeQuery(query);
             if ( rs.next() ) {
-                JOptionPane.showMessageDialog(null, "La base de donn\u00E9es est charg\u00E9 avec succè s !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La base de donn\u00E9es est charg\u00E9 avec succès !", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
@@ -47,6 +47,23 @@ public class DatabaseController {
         return ID_DOC;
     }
 
+
+    public static String getPassword(String user) {
+        String password = "";
+        try {
+            Connection conn = DriverManager.getConnection(pog.getdbUrl(),pog.getdbUsername(),pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "SELECT password FROM user WHERE username = '" + user + "' ;";
+            ResultSet rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                password = rs.getString("password");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Probl�me du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        return password;
+    }
 
 
 }
