@@ -30,7 +30,6 @@ public abstract class Document {
 
 
     public void display() {
-
         String path = this.path;
         String nameOfFile = this.nameOfFile;
 
