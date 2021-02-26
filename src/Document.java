@@ -53,6 +53,9 @@ public abstract class Document {
 
     public abstract int getDocID();
 
+    public abstract void show();
+
+    public abstract void search();
 
     public void delete() {
         //Capturing the path and name of file from the database to delete the document from the disk
