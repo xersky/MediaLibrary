@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.sql.*;
 
 public class DatabaseController {
-
     static final DatabaseModel pog = new DatabaseModel();
 
     public static void dbConnection() {
@@ -14,7 +13,7 @@ public class DatabaseController {
         try {
             Connection conn = DriverManager.getConnection(pog.getdbUrl(),pog.getdbUsername(),pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "select * from author;";
+            String query = "select * from user";
             ResultSet rs = stmt.executeQuery(query);
             if ( rs.next() ) {
                 JOptionPane.showMessageDialog(null, "La base de donn\u00E9es est charg\u00E9 avec succès !", "Information", JOptionPane.INFORMATION_MESSAGE);

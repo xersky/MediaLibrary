@@ -8,6 +8,7 @@ public class Book extends Document{
     public String isbn;
     public int numberOfPages;
 
+    public Book(){}
     public Book(String title, String description, String nameOfFile, String path, String authorName, String genreName, int bookID, String isbn, int numberOfPages) {
         super(title, description, nameOfFile, path, authorName, genreName);
         this.bookID = bookID;

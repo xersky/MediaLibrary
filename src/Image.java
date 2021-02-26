@@ -6,6 +6,7 @@ public class Image extends Document {
     public int imageID;
     public String resolution;
 
+    public Image(){}
     public Image (String title, String description, String nameOfFile, String path, String authorName, String genreName, int imageID, String resolution) {
         super(title, description, nameOfFile, path, authorName, genreName);
         this.imageID = imageID;
