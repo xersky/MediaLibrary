@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("Enter the ID of the book to modify: ");
         book.bookID = sc.nextInt();
-        book.modify();
+        book.display();
 
 
     }

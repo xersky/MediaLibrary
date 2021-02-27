@@ -33,6 +33,7 @@ public abstract class Document {
 
 
     public void display() {
+        this.getInfo();
         String path = this.path;
         String nameOfFile = this.nameOfFile;
 
@@ -85,7 +86,7 @@ public abstract class Document {
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "DELETE FROM document WHERE ID = '" + this.getDocID() + "' ;";
+            String query = "DELETE FROM document WHERE ID = " + this.getDocID() + " ;";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {
@@ -111,9 +112,9 @@ public abstract class Document {
         this.title = sc.nextLine();
         System.out.println("Enter the description: ");
         this.description = sc.nextLine();
-        System.out.println("Enter the name of file: ");
+        System.out.println("Enter the name of file: (example.doc)");
         this.nameOfFile = sc.nextLine();
-        System.out.println("Enter the path: ");
+        System.out.println("Enter the path: (exemple: C:/Users/ using '/' instead of '\\' to avoid any SQL Injection potential)");
         this.path = sc.next();
         this.chooseAuthor();
         this.chooseGenre();
@@ -121,7 +122,7 @@ public abstract class Document {
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "INSERT INTO document (TITLE, DESCRIPTION, NAME_OF_FILE, PATH, ID_AUTHOR, ID_GENRE, ID_TYPE) VALUES (\"" + this.title + "\",\"" + this.description + "\",\"" + this.nameOfFile + "\",\"" + this.path + "\",\"" + this.authorID + "\",\" "+ this.genreID + "\",5);";
+            String query = "INSERT INTO document (TITLE, DESCRIPTION, NAME_OF_FILE, PATH, ID_AUTHOR, ID_GENRE, ID_TYPE) VALUES (\"" + this.title + "\",\"" + this.description + "\",\"" + this.nameOfFile + "\",\"" + this.path + "\"," + this.authorID + ", "+ this.genreID + ",5);";
             stmt.executeUpdate(query);
             query = "SELECT @@identity as pog;";
             ResultSet rs = stmt.executeQuery(query);
@@ -144,9 +145,9 @@ public abstract class Document {
         this.title = sc.nextLine();
         System.out.println("Enter the new description: ");
         this.description = sc.nextLine();
-        System.out.println("Enter the new name of file: ");
+        System.out.println("Enter the new name of file: (example.doc)");
         this.nameOfFile = sc.nextLine();
-        System.out.println("Enter the new path: ");
+        System.out.println("Enter the new path: (exemple: C:/Users/ using '/' instead of '\\' to avoid any SQL Injection potential)");
         this.path = sc.next();
         this.chooseAuthor();
         this.chooseGenre();
@@ -154,7 +155,7 @@ public abstract class Document {
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "UPDATE document SET TITLE = '" + this.title + "', DESCRIPTION = '" + this.description + "' , NAME_OF_FILE = '" + this.nameOfFile + "' , PATH = '" + this.path + "' , ID_AUTHOR = " + this.authorID + ", ID_GENRE = " + this.genreID + " WHERE ID = " + this.docID + ";";
+            String query = "UPDATE document SET TITLE = \"" + this.title + "\", DESCRIPTION = \"" + this.description + "\" , NAME_OF_FILE = \"" + this.nameOfFile + "\" , PATH = \"" + this.path + "\" , ID_AUTHOR = " + this.authorID + ", ID_GENRE = " + this.genreID + " WHERE ID = " + this.docID + ";";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {
