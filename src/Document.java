@@ -30,6 +30,7 @@ public abstract class Document {
         this.genreName = genreName;
     }
 
+    public abstract void getInfo();
 
     public void display() {
         String path = this.path;
@@ -52,8 +53,6 @@ public abstract class Document {
     }
 
     public abstract int getDocID();
-
-    public abstract void show();
 
     public abstract void search();
 
@@ -102,7 +101,12 @@ public abstract class Document {
 
     }
 
-
+    public static void show(){
+        Book.show();
+        Audio.show();
+        Video.show();
+        Image.show();
+    }
 
     public abstract void add();
 

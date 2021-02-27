@@ -9,11 +9,40 @@ public class Book extends Document{
     public int numberOfPages;
 
     public Book(){}
+
+
+
     public Book(String title, String description, String nameOfFile, String path, String authorName, String genreName, int bookID, String isbn, int numberOfPages) {
         super(title, description, nameOfFile, path, authorName, genreName);
         this.bookID = bookID;
         this.isbn = isbn;
         this.numberOfPages = numberOfPages;
+    }
+
+
+    @Override
+    public void getInfo() {
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "SELECT book.ID, book.ID_DOC, document.TITLE, document.DESCRIPTION, document.NAME_OF_FILE, document.PATH, author.NAME, genre.NAME, book.ISBN, book.NBR_PAGES FROM book, document, author, genre WHERE document.ID = book.ID_DOC AND author.ID = document.ID_AUTHOR AND genre.ID = document.ID_GENRE AND book.ID = " + this.bookID + ";";
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                this.title = rs.getString("document.TITLE");
+                this.description = rs.getString("document.DESCRIPTION");
+                this.nameOfFile = rs.getString("document.NAME_OF_FILE");
+                this.path = rs.getString("document.PATH");
+                this.authorName = rs.getString("author.NAME");
+                this.genreName = rs.getString("genre.NAME");
+                this.isbn = rs.getString("book.ISBN");
+                this.numberOfPages = rs.getInt("book.NBR_PAGES");
+                this.docID = rs.getInt("book.ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
     }
 
 
@@ -28,8 +57,8 @@ public class Book extends Document{
         this.isbn = isbn;
         this.numberOfPages = numberOfPages;
     }
-    @Override
-    public void show(){
+
+    public static void show(){
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
@@ -44,12 +73,14 @@ public class Book extends Document{
             JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
+        System.out.println();
 
     }
 
-    @Override
-    public void search() {
 
+    public void search() {
+        this.getInfo();
+        System.out.println(this.bookID + " - " + this.title + " - " + this.description + " - " + this.nameOfFile + " - " + this.path + " - " + this.authorName + " - " + this.genreName + " - " + this.isbn + " - " + this.numberOfPages);
     }
 
     public void add() {

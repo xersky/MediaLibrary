@@ -8,6 +8,32 @@ public class Video extends Document{
     public String quality;
 
     public Video(){}
+
+    @Override
+    public void getInfo() {
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "SELECT video.ID, video.ID_DOC, document.TITLE, document.DESCRIPTION, document.NAME_OF_FILE, document.PATH, author.NAME, genre.NAME, video.DURATION, video.QUALITY FROM video, document, author, genre WHERE document.ID = video.ID_DOC AND author.ID = document.ID_AUTHOR AND genre.ID = document.ID_GENRE AND video.ID = " + this.videoID + ";";
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                this.title = rs.getString("document.TITLE");
+                this.description = rs.getString("document.DESCRIPTION");
+                this.nameOfFile = rs.getString("document.NAME_OF_FILE");
+                this.path = rs.getString("document.PATH");
+                this.authorName = rs.getString("author.NAME");
+                this.genreName = rs.getString("genre.NAME");
+                this.duration = rs.getString("video.DURATION");
+                this.quality = rs.getString("video.QUALITY");
+                this.docID = rs.getInt("video.ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+
     public Video (String title, String description, String nameOfFile, String path, String authorName, String genreName, int videoID, String duration, String quality) {
         super(title, description, nameOfFile, path, authorName, genreName);
         this.videoID = videoID;
@@ -29,8 +55,8 @@ public class Video extends Document{
         this.quality = quality;
     }
 
-    @Override
-    public void show(){
+
+    public static void show(){
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
@@ -46,11 +72,13 @@ public class Video extends Document{
             System.exit(1);
         }
 
+        System.out.println();
     }
 
     @Override
     public void search() {
-
+        this.getInfo();
+        System.out.println(this.videoID + " - " + this.title + " - " + this.description + " - " + this.nameOfFile + " - " + this.path + " - " + this.authorName + " - " + this.genreName + " - " + this.duration + " - " + this.quality);
     }
 
     public void add() {
