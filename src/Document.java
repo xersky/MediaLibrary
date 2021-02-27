@@ -123,7 +123,7 @@ public abstract class Document {
         System.out.println("Enter the name of file: ");
         this.nameOfFile = sc.nextLine();
         System.out.println("Enter the path: ");
-        this.path = sc.nextLine();
+        this.path = sc.next();
         this.chooseAuthor();
         this.chooseGenre();
 
@@ -172,9 +172,11 @@ public abstract class Document {
 
         System.out.println("Enter other : (1- select author/2- add new author");
         Selection = sc.nextInt();
+
         if(Selection == 1) {
             System.out.println("Enter Author ID: ");
             this.authorID = sc.nextInt();
+            sc.nextLine();
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
@@ -192,7 +194,9 @@ public abstract class Document {
 
         }else {
             System.out.println("Enter the author name: ");
+            sc.nextLine();
             this.authorName = sc.nextLine();
+
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
@@ -248,6 +252,7 @@ public abstract class Document {
         if(Selection == 1) {
             System.out.println("Enter Genre ID: ");
             this.genreID = sc.nextInt();
+            sc.nextLine();
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
@@ -265,6 +270,7 @@ public abstract class Document {
 
         }else {
             System.out.println("Enter the genre name: ");
+            sc.nextLine();
             this.genreName = sc.nextLine();
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;

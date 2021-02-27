@@ -87,7 +87,7 @@ public class Audio extends Document{
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "INSERT INTO document (ID_TYPE) VALUES (" + typeID + ") WHERE ID = " + this.docID + "; ";
+            String query = "UPDATE document SET ID_TYPE = " + typeID + " WHERE ID = " + this.docID + "; ";
             stmt.executeUpdate(query);
             query = "INSERT INTO audio (DURATION, ID_DOC) VALUES (\'" + this.duration + "\' , " + this.docID + ");";
             stmt.executeUpdate(query);

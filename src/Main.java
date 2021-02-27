@@ -11,7 +11,7 @@ public class Main {
         LoginPage.Login();
         Document.show();
 
-        book.addDocBasicInfo();
+        book.add();
 
     }
 
