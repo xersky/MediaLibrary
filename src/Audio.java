@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.sql.*;
+import java.util.Scanner;
 
 public class Audio extends Document{
     final static String type = "AUDIO";
+    final static int typeID = 1;
     public int audioID;
     public String duration;
 
@@ -77,6 +79,23 @@ public class Audio extends Document{
     }
 
     public void add() {
+        Scanner sc = new Scanner(System.in);
+
+        this.addDocBasicInfo();
+        System.out.println("Enter the duration: ");
+        this.duration= sc.next();
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "INSERT INTO document (ID_TYPE) VALUES (" + typeID + ") WHERE ID = " + this.docID + "; ";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO audio (DURATION, ID_DOC) VALUES (\'" + this.duration + "\' , " + this.docID + ");";
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
 
     }
 }

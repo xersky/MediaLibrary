@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.sql.*;
+import java.util.Scanner;
 
 public class Video extends Document{
     final static String type = "VIDEO";
+    final static int typeID = 2;
     public int videoID;
     public String duration;
     public String quality;
@@ -82,7 +84,26 @@ public class Video extends Document{
     }
 
     public void add() {
-        //tbd
+        Scanner sc = new Scanner(System.in);
+
+        this.addDocBasicInfo();
+        System.out.println("Enter the duration: ");
+        this.duration = sc.next();
+        System.out.println("Enter the quality: ");
+        this.quality = sc.next();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "INSERT INTO document (ID_TYPE) VALUES (" + typeID + ") WHERE ID = " + this.docID + "; ";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO video (DURATION, QUALITY, ID_DOC) VALUES (\'" + this.duration + "\' , \'" + this.quality + "\' , " + this.docID + ");";
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
     }
 
 }

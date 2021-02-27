@@ -1,12 +1,15 @@
 import javax.swing.*;
 import java.sql.*;
+import java.util.Scanner;
 
 public class Book extends Document{
 
     final static String type = "BOOK";
+    final static int typeID = 4;
     public int bookID;
     public String isbn;
     public int numberOfPages;
+
 
     public Book(){}
 
@@ -83,8 +86,32 @@ public class Book extends Document{
         System.out.println(this.bookID + " - " + this.title + " - " + this.description + " - " + this.nameOfFile + " - " + this.path + " - " + this.authorName + " - " + this.genreName + " - " + this.isbn + " - " + this.numberOfPages);
     }
 
+
     public void add() {
-        //tbd
+        Scanner sc = new Scanner(System.in);
+
+        this.addDocBasicInfo();
+        System.out.println("Enter the ISBN: ");
+        this.isbn = sc.next();
+        System.out.println("Enter the number of pages: ");
+        this.numberOfPages = sc.nextInt();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "INSERT INTO document (ID_TYPE) VALUES (" + typeID + ") WHERE ID = " + this.docID + "; ";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO book (ISBN, NBR_PAGES, ID_DOC) VALUES (\'" + this.isbn + "\' , " + this.numberOfPages + ", " + this.docID + ");";
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+
+
+
     }
+
 }
 
