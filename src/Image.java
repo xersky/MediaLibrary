@@ -56,7 +56,7 @@ public class Image extends Document {
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "UPDATE image SET RESOLUTION = '" + this.resolution + "' WHERE ID = " + this.imageID  + "; ";
+            String query = "UPDATE image SET RESOLUTION = \"" + this.resolution + "\" WHERE ID = " + this.imageID  + "; ";
             stmt.executeUpdate(query);
             query = "SELECT ID_DOC FROM image WHERE ID = " + this.imageID + " ;";
             ResultSet rs = stmt.executeQuery(query);
@@ -108,7 +108,7 @@ public class Image extends Document {
             Statement stmt = conn.createStatement();
             String query = "UPDATE document SET ID_TYPE = " + typeID + " WHERE ID = " + this.docID + "; ";
             stmt.executeUpdate(query);
-            query = "INSERT INTO image (RESOLUTION, DOC_ID) VALUES (\'" + this.resolution  + "\', " + this.docID + ");";
+            query = "INSERT INTO image (RESOLUTION, DOC_ID) VALUES (\"" + this.resolution  + "\", " + this.docID + ");";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {

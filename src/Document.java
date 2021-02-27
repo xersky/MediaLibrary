@@ -121,7 +121,7 @@ public abstract class Document {
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "INSERT INTO document (TITLE, DESCRIPTION, NAME_OF_FILE, PATH, ID_AUTHOR, ID_GENRE, ID_TYPE) VALUES (\'" + this.title + "\',\'" + this.description + "\',\'" + this.nameOfFile + "\',\'" + this.path + "\',\'" + this.authorID + "\',\' "+ this.genreID + "\',5);";
+            String query = "INSERT INTO document (TITLE, DESCRIPTION, NAME_OF_FILE, PATH, ID_AUTHOR, ID_GENRE, ID_TYPE) VALUES (\"" + this.title + "\",\"" + this.description + "\",\"" + this.nameOfFile + "\",\"" + this.path + "\",\"" + this.authorID + "\",\" "+ this.genreID + "\",5);";
             stmt.executeUpdate(query);
             query = "SELECT @@identity as pog;";
             ResultSet rs = stmt.executeQuery(query);
@@ -219,7 +219,7 @@ public abstract class Document {
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
-                String query = "INSERT INTO author (NAME) VALUES (\'" + this.authorName + "\');";
+                String query = "INSERT INTO author (NAME) VALUES (\"" + this.authorName + "\");";
                 stmt.executeUpdate(query);
 
             } catch (SQLException e) {
@@ -230,7 +230,7 @@ public abstract class Document {
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
-                String query = "SELECT ID FROM author WHERE NAME = \'" + this.authorName + "\' ;";
+                String query = "SELECT ID FROM author WHERE NAME = \"" + this.authorName + "\" ;";
                 ResultSet rs = stmt.executeQuery(query);
                 while(rs.next()){
                     this.authorID = rs.getInt("ID");
@@ -294,7 +294,7 @@ public abstract class Document {
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
-                String query = "INSERT INTO genre (NAME) VALUES (\'" + this.genreName + "\');";
+                String query = "INSERT INTO genre (NAME) VALUES (\"" + this.genreName + "\");";
                 stmt.executeUpdate(query);
 
             } catch (SQLException e) {
@@ -305,7 +305,7 @@ public abstract class Document {
             try {
                 Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
                 Statement stmt = conn.createStatement();
-                String query = "SELECT ID FROM genre WHERE NAME = \'" + this.genreName + "\' ;";
+                String query = "SELECT ID FROM genre WHERE NAME = \"" + this.genreName + "\" ;";
                 ResultSet rs = stmt.executeQuery(query);
                 while(rs.next()){
                     this.genreID = rs.getInt("ID");

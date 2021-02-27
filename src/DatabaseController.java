@@ -34,7 +34,7 @@ public class DatabaseController {
         try {
             Connection conn = DriverManager.getConnection(pog.getdbUrl(),pog.getdbUsername(),pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "select ID_DOC from " + type + " WHERE ID = '" + ID +"' ;";
+            String query = "select ID_DOC from " + type + " WHERE ID = " + ID + " ;";
             ResultSet rs = stmt.executeQuery(query);
             while ( rs.next() ) {
                 ID_DOC = rs.getInt("ID_DOC");
@@ -52,7 +52,7 @@ public class DatabaseController {
         try {
             Connection conn = DriverManager.getConnection(pog.getdbUrl(),pog.getdbUsername(),pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "SELECT password FROM user WHERE username = '" + user + "' ;";
+            String query = "SELECT password FROM user WHERE username = \"" + user + "\" ;";
             ResultSet rs = stmt.executeQuery(query);
             while ( rs.next() ) {
                 password = rs.getString("password");

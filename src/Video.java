@@ -62,7 +62,7 @@ public class Video extends Document{
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "UPDATE video SET DURATION = '" + this.duration + "' ,QUALITY = '" + this.quality + "' WHERE ID = " + this.videoID  + "; ";
+            String query = "UPDATE video SET DURATION = \"" + this.duration + "\" ,QUALITY = \"" + this.quality + "\" WHERE ID = " + this.videoID  + "; ";
             stmt.executeUpdate(query);
             query = "SELECT ID_DOC FROM video WHERE ID = " + this.videoID + " ;";
             ResultSet rs = stmt.executeQuery(query);
@@ -117,7 +117,7 @@ public class Video extends Document{
             Statement stmt = conn.createStatement();
             String query = "UPDATE document SET ID_TYPE = " + typeID + "  WHERE ID = " + this.docID + "; ";
             stmt.executeUpdate(query);
-            query = "INSERT INTO video (DURATION, QUALITY, ID_DOC) VALUES (\'" + this.duration + "\' , \'" + this.quality + "\' , " + this.docID + ");";
+            query = "INSERT INTO video (DURATION, QUALITY, ID_DOC) VALUES (\"" + this.duration + "\" , \"" + this.quality + "\" , " + this.docID + ");";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {

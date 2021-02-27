@@ -66,7 +66,7 @@ public class Book extends Document{
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
-            String query = "UPDATE book SET ISBN = '" + this.isbn + "' , NBR_PAGES = " + this.numberOfPages + " WHERE ID = " + this.bookID  + "; ";
+            String query = "UPDATE book SET ISBN = \"" + this.isbn + "\" , NBR_PAGES = " + this.numberOfPages + " WHERE ID = " + this.bookID  + "; ";
             stmt.executeUpdate(query);
             query = "SELECT ID_DOC FROM book WHERE ID = " + this.bookID + " ;";
             ResultSet rs = stmt.executeQuery(query);
@@ -123,7 +123,7 @@ public class Book extends Document{
             Statement stmt = conn.createStatement();
             String query = "UPDATE document SET ID_TYPE = " + typeID + " WHERE ID = " + this.docID + "; ";
             stmt.executeUpdate(query);
-            query = "INSERT INTO book (ISBN, NBR_PAGES, ID_DOC) VALUES (\'" + this.isbn + "\' , " + this.numberOfPages + ", " + this.docID + ");";
+            query = "INSERT INTO book (ISBN, NBR_PAGES, ID_DOC) VALUES (\"" + this.isbn + "\" , " + this.numberOfPages + ", " + this.docID + ");";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {
