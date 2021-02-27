@@ -47,10 +47,28 @@ public class Image extends Document {
 
 
 
-    public void modify(String title, String description, String nameOfFile, String path, String authorName, String genreName, int imageID, String resolution) {
-        super.modify(title, description, nameOfFile, path, authorName, genreName);
-        this.imageID = imageID;
-        this.resolution = resolution;
+    public void modify(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Modify the document: ");
+
+        System.out.println("Enter the new resolution: ");
+        this.resolution = sc.next();
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "UPDATE image SET RESOLUTION = '" + this.resolution + "' WHERE ID = " + this.imageID  + "; ";
+            stmt.executeUpdate(query);
+            query = "SELECT ID_DOC FROM image WHERE ID = " + this.imageID + " ;";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                this.docID = rs.getInt("ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        this.modifyDocBasicInfo();
     }
 
 

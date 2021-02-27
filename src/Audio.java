@@ -46,10 +46,31 @@ public class Audio extends Document{
     }
 
 
-    public void modify(String title, String description, String nameOfFile, String path, String authorName, String genreName, int audioID, String duration) {
-        super.modify(title, description, nameOfFile, path, authorName, genreName);
-        this.audioID = audioID;
-        this.duration = duration;
+    public void modify(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Modify the document: ");
+
+        this.modifyDocBasicInfo();
+        System.out.println("Enter the new duration: ");
+        this.duration= sc.next();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "UPDATE image SET DURATION = '" + this.duration + "' WHERE ID = " + this.audioID  + "; ";
+            stmt.executeUpdate(query);
+            query = "SELECT ID_DOC FROM audio WHERE ID = " + this.audioID + " ;";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                this.docID = rs.getInt("ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        this.modifyDocBasicInfo();
     }
 
 

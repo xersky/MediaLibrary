@@ -50,11 +50,31 @@ public class Video extends Document{
 
 
 
-    public void modify(String title, String description, String nameOfFile, String path, String authorName, String genreName, int videoID, String duration, String quality) {
-        super.modify(title, description, nameOfFile, path, authorName, genreName);
-        this.videoID = videoID;
-        this.duration = duration;
-        this.quality = quality;
+    public void modify(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Modify the document: ");
+
+        System.out.println("Enter the new duration: ");
+        this.duration= sc.next();
+        System.out.println("Enter the new quality: ");
+        this.quality = sc.next();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "UPDATE video SET DURATION = '" + this.duration + "' ,QUALITY = '" + this.quality + "' WHERE ID = " + this.videoID  + "; ";
+            stmt.executeUpdate(query);
+            query = "SELECT ID_DOC FROM video WHERE ID = " + this.videoID + " ;";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                this.docID = rs.getInt("ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        this.modifyDocBasicInfo();
     }
 
 

@@ -54,12 +54,34 @@ public class Book extends Document{
         return DatabaseController.dbQuery(this.bookID, Book.type);
     }
 
-    public void modify(String title, String description, String nameOfFile, String path, String authorName, String genreName, int bookID, String isbn, int numberOfPages) {
-        super.modify(title, description, nameOfFile, path, authorName, genreName);
-        this.bookID = bookID;
-        this.isbn = isbn;
-        this.numberOfPages = numberOfPages;
+    public void modify(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Modify the document: ");
+
+        System.out.println("Enter the new ISBN: ");
+        this.isbn = sc.next();
+        System.out.println("Enter the new number of pages: ");
+        this.numberOfPages = sc.nextInt();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "UPDATE book SET ISBN = '" + this.isbn + "' , NBR_PAGES = " + this.numberOfPages + " WHERE ID = " + this.bookID  + "; ";
+            stmt.executeUpdate(query);
+            query = "SELECT ID_DOC FROM book WHERE ID = " + this.bookID + " ;";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                this.docID = rs.getInt("ID_DOC");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+
+        this.modifyDocBasicInfo();
     }
+
 
     public static void show(){
         try {

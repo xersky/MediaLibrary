@@ -20,7 +20,6 @@ public abstract class Document {
     public String authorName;
     public int genreID;
     public String genreName;
-    public int typeID;
 
     public Document(){}
     public Document(String title, String description, String nameOfFile, String path, String authorName, String genreName) {
@@ -44,14 +43,6 @@ public abstract class Document {
         }
     }
 
-    public void modify(String title, String description, String nameOfFile, String path, String authorName, String genreName) {
-        this.title = title;
-        this.description = description;
-        this.nameOfFile = nameOfFile;
-        this.path = path;
-        this.authorName = authorName;
-        this.genreName = genreName;
-    }
 
     public abstract void getInfo();
 
@@ -137,6 +128,34 @@ public abstract class Document {
             while (rs.next()){
                 this.docID = rs.getInt("pog");
             }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+
+    }
+
+    public void modifyDocBasicInfo(){
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the new title: ");
+        this.title = sc.nextLine();
+        System.out.println("Enter the new description: ");
+        this.description = sc.nextLine();
+        System.out.println("Enter the new name of file: ");
+        this.nameOfFile = sc.nextLine();
+        System.out.println("Enter the new path: ");
+        this.path = sc.next();
+        this.chooseAuthor();
+        this.chooseGenre();
+
+        try {
+            Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
+            Statement stmt = conn.createStatement();
+            String query = "UPDATE document SET TITLE = '" + this.title + "', DESCRIPTION = '" + this.description + "' , NAME_OF_FILE = '" + this.nameOfFile + "' , PATH = '" + this.path + "' , ID_AUTHOR = " + this.authorID + ", ID_GENRE = " + this.genreID + " WHERE ID = " + this.docID + ";";
+            stmt.executeUpdate(query);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problème du chargement de la base de donn\u00E9es !\nVeuillez d\u00E9marrez le serveur mysql avant de lancer l'application\n"+ e,"Erreur", JOptionPane.ERROR_MESSAGE);
