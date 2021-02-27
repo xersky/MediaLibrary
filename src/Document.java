@@ -34,11 +34,8 @@ public abstract class Document {
 
     public void display() {
         this.getInfo();
-        String path = this.path;
-        String nameOfFile = this.nameOfFile;
-
         try {
-           Process process = Runtime.getRuntime().exec("cmd /c " + nameOfFile, null, new File(path));
+           Process process = Runtime.getRuntime().exec("cmd /c " + this.nameOfFile, null, new File(this.path));
         } catch (IOException e) {
             e.printStackTrace();
         }

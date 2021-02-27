@@ -11,7 +11,7 @@ public class ApplicationPage {
         System.out.println("#      8- Modify a document");
         System.out.println("#      9- Delete a document");
         System.out.println("#      10- Add a new document");
-        System.out.println("#      5- Go back");
+        System.out.println("#      0- Exit");
         System.out.println("---------------------------------------------------------");
     }
     public static void menuSearchDoc(){
@@ -20,34 +20,44 @@ public class ApplicationPage {
         System.out.println("#      2- Search for an image");
         System.out.println("#      3- Search for an audio");
         System.out.println("#      4- Search for a video");
-        System.out.println("#      5- Go back");
+        System.out.println("#      0- Go back");
         System.out.println("--------------------------------------------------------------");
     }
     public static void menuDisplayDoc(){
         System.out.println("------------------Display a document Menu------------------");
-        System.out.println("#      1- Display for a book");
-        System.out.println("#      2- Display for an image");
-        System.out.println("#      3- Display for an audio");
-        System.out.println("#      4- Display for a video");
-        System.out.println("#      5- Go back");
+        System.out.println("#      1- Display a book");
+        System.out.println("#      2- Display an image");
+        System.out.println("#      3- Display an audio");
+        System.out.println("#      4- Display a video");
+        System.out.println("#      0- Go back");
         System.out.println("-----------------------------------------------------------");
     }
+    public static void menuModifyDoc(){
+        System.out.println("------------------Modify a document Menu------------------");
+        System.out.println("#      1- Modify a book");
+        System.out.println("#      2- Modify an image");
+        System.out.println("#      3- Modify an audio");
+        System.out.println("#      4- Modify a video");
+        System.out.println("#      0- Go back");
+        System.out.println("-----------------------------------------------------------");
+    }
+
     public static void menuDeleteDoc(){
         System.out.println("------------------Delete a document Menu------------------");
-        System.out.println("#      1- Delete for a book");
-        System.out.println("#      2- Delete for an image");
-        System.out.println("#      3- Delete for an audio");
-        System.out.println("#      4- Delete for a video");
-        System.out.println("#      5- Go back");
+        System.out.println("#      1- Delete a book");
+        System.out.println("#      2- Delete an image");
+        System.out.println("#      3- Delete an audio");
+        System.out.println("#      4- Delete a video");
+        System.out.println("#      0- Go back");
         System.out.println("-----------------------------------------------------------");
     }
     public static void menuAddDoc(){
         System.out.println("------------------Add a document Menu------------------");
-        System.out.println("#      1- Add for a book");
-        System.out.println("#      2- Add for an image");
-        System.out.println("#      3- Add for an audio");
-        System.out.println("#      4- Add for a video");
-        System.out.println("#      5- Go back");
+        System.out.println("#      1- Add a book");
+        System.out.println("#      2- Add an image");
+        System.out.println("#      3- Add an audio");
+        System.out.println("#      4- Add a video");
+        System.out.println("#      0- Go back");
         System.out.println("-------------------------------------------------------");
     }
 

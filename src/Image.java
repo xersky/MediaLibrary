@@ -108,7 +108,7 @@ public class Image extends Document {
             Statement stmt = conn.createStatement();
             String query = "UPDATE document SET ID_TYPE = " + typeID + " WHERE ID = " + this.docID + "; ";
             stmt.executeUpdate(query);
-            query = "INSERT INTO image (RESOLUTION, DOC_ID) VALUES (\"" + this.resolution  + "\", " + this.docID + ");";
+            query = "INSERT INTO image (RESOLUTION, ID_DOC) VALUES (\"" + this.resolution  + "\", " + this.docID + ");";
             stmt.executeUpdate(query);
 
         } catch (SQLException e) {
