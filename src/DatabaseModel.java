@@ -4,6 +4,8 @@ public class DatabaseModel {
     private String dbUsername;
     private String dbPassword;
 
+
+    //the getters and the setters
     public void setdbUrl(String dbUrl) {
         this.dbUrl = dbUrl;
     }

@@ -4,6 +4,7 @@ import java.sql.*;
 public class DatabaseController {
     static final DatabaseModel pog = new DatabaseModel();
 
+    //assures the connectivity of the database
     public static void dbConnection() {
 
         pog.setdbUrl("jdbc:mysql://localhost:3306/mediat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
@@ -13,6 +14,7 @@ public class DatabaseController {
         try {
             Connection conn = DriverManager.getConnection(pog.getdbUrl(),pog.getdbUsername(),pog.getdbPassword()) ;
             Statement stmt = conn.createStatement();
+            //random query for test
             String query = "select * from user";
             ResultSet rs = stmt.executeQuery(query);
             if ( rs.next() ) {
@@ -26,7 +28,7 @@ public class DatabaseController {
 
     }
 
-
+    //captures the foreign key (ID of a document) from a specific type of a document
     public static int dbQuery(int ID, String type) {
 
         int ID_DOC = 0;
@@ -46,7 +48,7 @@ public class DatabaseController {
         return ID_DOC;
     }
 
-
+    //getting the password of a username to test the authentication
     public static String getPassword(String user) {
         String password = "";
         try {
