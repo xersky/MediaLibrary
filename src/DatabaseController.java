@@ -7,7 +7,7 @@ public class DatabaseController {
     //assures the connectivity of the database
     public static void dbConnection() {
 
-        //my database credentials
+        //my database credentials (to log in MySQL server) and "mediat" is the name of the database
         pog.setdbUrl("jdbc:mysql://localhost:3306/mediat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         pog.setdbUsername("root");
         pog.setDbPassword("lolilol123");
