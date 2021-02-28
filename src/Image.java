@@ -34,11 +34,6 @@ public class Image extends Document {
         }
     }
 
-    public Image (String title, String description, String nameOfFile, String path, String authorName, String genreName, int imageID, String resolution) {
-        super(title, description, nameOfFile, path, authorName, genreName);
-        this.imageID = imageID;
-        this.resolution = resolution;
-    }
 
 
     public int getDocID() {

@@ -1,16 +1,13 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.sql.*;
 import java.util.Scanner;
 
 public abstract class Document {
 
-    //Les attributs
+    //the attributes of the document
     public int docID;
     public String title;
     public String description;
@@ -21,32 +18,33 @@ public abstract class Document {
     public int genreID;
     public String genreName;
 
+    //default constructor
     public Document(){}
-    public Document(String title, String description, String nameOfFile, String path, String authorName, String genreName) {
-        this.title = title;
-        this.description = description;
-        this.nameOfFile = nameOfFile;
-        this.path = path;
-        this.authorName = authorName;
-        this.genreName = genreName;
-    }
 
 
+    //abstract methods for our abstract class
+    public abstract void getInfo();
+
+    public abstract int getDocID();
+
+    public abstract void search();
+
+    public abstract void add();
+
+    //execute/display a document
     public void display() {
+
         this.getInfo();
         try {
-           Process process = Runtime.getRuntime().exec("cmd /c " + this.nameOfFile, null, new File(this.path));
+            //
+           Runtime.getRuntime().exec("cmd /c " + this.nameOfFile, null, new File(this.path));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public abstract void getInfo();
 
-    public abstract int getDocID();
-
-    public abstract void search();
 
     public void delete() {
         //Capturing the path and name of file from the database to delete the document from the disk
@@ -65,7 +63,7 @@ public abstract class Document {
             System.exit(1);
         }
 
-        //deleting the captured file
+        //deleting the captured file from the disk
         try {
             Files.deleteIfExists(Paths.get(this.path + this.nameOfFile));
         }
@@ -93,6 +91,7 @@ public abstract class Document {
 
     }
 
+    //show all types of documents
     public static void show(){
         Book.show();
         Audio.show();
@@ -100,8 +99,7 @@ public abstract class Document {
         Image.show();
     }
 
-    public abstract void add();
-
+    //add just the info of the attributes of the document
     public void addDocBasicInfo(){
 
         Scanner sc = new Scanner(System.in);
@@ -121,6 +119,8 @@ public abstract class Document {
             Statement stmt = conn.createStatement();
             String query = "INSERT INTO document (TITLE, DESCRIPTION, NAME_OF_FILE, PATH, ID_AUTHOR, ID_GENRE, ID_TYPE) VALUES (\"" + this.title + "\",\"" + this.description + "\",\"" + this.nameOfFile + "\",\"" + this.path + "\"," + this.authorID + ", "+ this.genreID + ",5);";
             stmt.executeUpdate(query);
+
+            //the query below captures the ID of the last inserted document
             query = "SELECT @@identity as pog;";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()){
@@ -134,9 +134,13 @@ public abstract class Document {
 
     }
 
+    //modify just the info of the attributes of the document
     public void modifyDocBasicInfo(){
 
         Scanner sc = new Scanner(System.in);
+        this.getInfo();
+        String file = this.path + this.nameOfFile;
+
 
         System.out.println("Enter the new title: ");
         this.title = sc.nextLine();
@@ -146,6 +150,18 @@ public abstract class Document {
         this.nameOfFile = sc.nextLine();
         System.out.println("Enter the new path: (exemple: C:/Users/ using '/' instead of '\\' to avoid any SQL Injection potential)");
         this.path = sc.next();
+
+        //renaming or moving the documents in the disk
+        Path source = Paths.get(file);
+        Path target = Paths.get(this.path + this.nameOfFile);
+
+        try {
+            Files.move(source, target);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.chooseAuthor();
         this.chooseGenre();
 
@@ -162,7 +178,7 @@ public abstract class Document {
 
     }
 
-
+    //this method insures choosing an existing author or adding a new one if it doesn't exist in our database
     public void chooseAuthor(){
 
         Scanner sc = new Scanner(System.in);
@@ -240,6 +256,8 @@ public abstract class Document {
             }
         }
     }
+
+    //this method insures choosing an existing genre or adding a new one if it doesn't exist in our database
     public void chooseGenre(){
 
         Scanner sc = new Scanner(System.in);

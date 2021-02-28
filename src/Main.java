@@ -4,14 +4,21 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        //the variables below are responsible for the switch and while loop
         int looper, insideLooper, repeat = 0;
+
+        //creating instances for the classes
         Book book = new Book();
         Audio audio = new Audio();
         Video video = new Video();
         Image image = new Image();
 
+        //Insuring connectivity between the application and the database
         DatabaseController.dbConnection();
+
+        //launching the login page
         LoginPage.Login();
+
        do {
            ApplicationPage.menuApp();
 
@@ -42,22 +49,22 @@ public class Main {
                 insideLooper = sc.nextInt();
                 switch (insideLooper) {
                     case 1:
-                        System.out.println("Entrer the ID of a book: ");
+                        System.out.println("Enter the ID of a book: ");
                         book.bookID = sc.nextInt();
                         book.search();
                         break;
                     case 2:
-                        System.out.println("Entrer the ID of a image: ");
+                        System.out.println("Enter the ID of a image: ");
                         image.imageID = sc.nextInt();
                         image.search();
                         break;
                     case 3:
-                        System.out.println("Entrer the ID of a audio: ");
+                        System.out.println("Enter the ID of a audio: ");
                         audio.audioID = sc.nextInt();
                         audio.search();
                         break;
                     case 4:
-                        System.out.println("Entrer the ID of a video: ");
+                        System.out.println("Enter the ID of a video: ");
                         video.videoID = sc.nextInt();
                         video.search();
                         break;
@@ -72,22 +79,22 @@ public class Main {
                 insideLooper = sc.nextInt();
                 switch (insideLooper) {
                     case 1:
-                        System.out.println("Entrer the ID of a book: ");
+                        System.out.println("Enter the ID of a book: ");
                         book.bookID = sc.nextInt();
                         book.display();
                         break;
                     case 2:
-                        System.out.println("Entrer the ID of an image: ");
+                        System.out.println("Enter the ID of an image: ");
                         image.imageID = sc.nextInt();
                         image.display();
                         break;
                     case 3:
-                        System.out.println("Entrer the ID of an audio: ");
+                        System.out.println("Enter the ID of an audio: ");
                         audio.audioID = sc.nextInt();
                         audio.display();
                         break;
                     case 4:
-                        System.out.println("Entrer the ID of an video: ");
+                        System.out.println("Enter the ID of an video: ");
                         video.videoID = sc.nextInt();
                         video.display();
                         break;
@@ -102,25 +109,25 @@ public class Main {
                 insideLooper = sc.nextInt();
                 switch (insideLooper) {
                     case 1:
-                        System.out.println("Entrer the ID of a book: ");
+                        System.out.println("Enter the ID of a book: ");
                         book.bookID = sc.nextInt();
                         book.modify();
                         book.search();
                         break;
                     case 2:
-                        System.out.println("Entrer the ID of a image: ");
+                        System.out.println("Enter the ID of a image: ");
                         image.imageID = sc.nextInt();
                         image.modify();
                         image.search();
                         break;
                     case 3:
-                        System.out.println("Entrer the ID of a audio: ");
+                        System.out.println("Enter the ID of a audio: ");
                         audio.audioID = sc.nextInt();
                         audio.modify();
                         audio.search();
                         break;
                     case 4:
-                        System.out.println("Entrer the ID of a video: ");
+                        System.out.println("Enter the ID of a video: ");
                         video.videoID = sc.nextInt();
                         video.modify();
                         video.search();
@@ -135,22 +142,22 @@ public class Main {
                 insideLooper = sc.nextInt();
                 switch (insideLooper) {
                     case 1:
-                        System.out.println("Entrer the ID of a book: ");
+                        System.out.println("Enter the ID of a book: ");
                         book.bookID = sc.nextInt();
                         book.delete();
                         break;
                     case 2:
-                        System.out.println("Entrer the ID of a image: ");
+                        System.out.println("Enter the ID of a image: ");
                         image.imageID = sc.nextInt();
                         image.delete();
                         break;
                     case 3:
-                        System.out.println("Entrer the ID of a audio: ");
+                        System.out.println("Enter the ID of a audio: ");
                         audio.audioID = sc.nextInt();
                         audio.delete();
                         break;
                     case 4:
-                        System.out.println("Entrer the ID of a video: ");
+                        System.out.println("Enter the ID of a video: ");
                         video.videoID = sc.nextInt();
                         video.delete();
                         break;
@@ -189,6 +196,7 @@ public class Main {
                 break;
         }
        }while(repeat == 1);
+
     }
 
 }

@@ -13,16 +13,7 @@ public class Book extends Document{
 
     public Book(){}
 
-
-
-    public Book(String title, String description, String nameOfFile, String path, String authorName, String genreName, int bookID, String isbn, int numberOfPages) {
-        super(title, description, nameOfFile, path, authorName, genreName);
-        this.bookID = bookID;
-        this.isbn = isbn;
-        this.numberOfPages = numberOfPages;
-    }
-
-
+    //this method stores all the info of a book from the database into an instance
     @Override
     public void getInfo() {
         try {
@@ -48,12 +39,13 @@ public class Book extends Document{
         }
     }
 
-
+    //this method stores the document ID to use it in other method
     @Override
     public int getDocID() {
         return DatabaseController.dbQuery(this.bookID, Book.type);
     }
 
+    //this method modifies the
     public void modify(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Modify the document: ");
@@ -82,7 +74,7 @@ public class Book extends Document{
         this.modifyDocBasicInfo();
     }
 
-
+    //show all books
     public static void show(){
         try {
             Connection conn = DriverManager.getConnection(DatabaseController.pog.getdbUrl(),DatabaseController.pog.getdbUsername(), DatabaseController.pog.getdbPassword()) ;
@@ -102,13 +94,13 @@ public class Book extends Document{
 
     }
 
-
+    //show info of a single book by ID
     public void search() {
         this.getInfo();
         System.out.println(this.bookID + " - " + this.title + " - " + this.description + " - " + this.nameOfFile + " - " + this.path + " - " + this.authorName + " - " + this.genreName + " - " + this.isbn + " - " + this.numberOfPages);
     }
 
-
+    //add new book
     public void add() {
         Scanner sc = new Scanner(System.in);
 

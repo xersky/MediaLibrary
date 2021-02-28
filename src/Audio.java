@@ -10,6 +10,7 @@ public class Audio extends Document{
 
     public Audio(){}
 
+
     @Override
     public void getInfo() {
         try {
@@ -34,11 +35,7 @@ public class Audio extends Document{
         }
     }
 
-    public Audio (String title, String description, String nameOfFile, String path, String authorName, String genreName, int audioID, String duration) {
-        super(title, description, nameOfFile, path, authorName, genreName);
-        this.audioID = audioID;
-        this.duration = duration;
-    }
+
 
     @Override
     public int getDocID() {

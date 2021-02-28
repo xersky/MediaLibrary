@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Admin extends User {
 
-    private String password;
+    protected String password;
 
     public void dbLogin(){
         Scanner sc = new Scanner(System.in);

@@ -11,6 +11,7 @@ public class Video extends Document{
 
     public Video(){}
 
+
     @Override
     public void getInfo() {
         try {
@@ -36,12 +37,7 @@ public class Video extends Document{
         }
     }
 
-    public Video (String title, String description, String nameOfFile, String path, String authorName, String genreName, int videoID, String duration, String quality) {
-        super(title, description, nameOfFile, path, authorName, genreName);
-        this.videoID = videoID;
-        this.duration = duration;
-        this.quality = quality;
-    }
+
 
     @Override
     public int getDocID() {
